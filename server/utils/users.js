@@ -29,13 +29,14 @@ class Users {
 	}
 	// checks that no other user in the chat room has the same name
 	isUserUnique (params) {
-		console.log(params);
-		// var sameNameUsers = this.users.filter((user) => user.name.toLowerCase() === name.toLowerCase());
-		// if (sameNameUsers.length === 0) {
-		// 	return ;
-		// } else {
-		// 	return false;
-		// }
+		var roomUsers = this.getUserList(params.room) || [];
+		console.log(roomUsers);
+		console.log(params.name);
+		if (roomUsers.length > 0) {
+			return roomUsers.filter((username) => username.toLowerCase() === params.name.toLowerCase()).length === 0;
+		} else {
+			return true;
+		}
 	}
 }
 

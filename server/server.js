@@ -29,12 +29,9 @@ io.on('connection', (socket) => {
 			return callback('Name and room name are required!');
 		} 
 
-		// if (!users.isUserUnique(params) ) {
-		// 	return callback('Name already taken');
-		// }
-		console.log(params);
-		// users.isUserUnique(params);
-
+		if (!users.isUserUnique(params) ) {
+			return callback('Name already taken');
+		}
 
 		socket.join(params.room);
 		users.removeUser(socket.id);
