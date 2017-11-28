@@ -20,8 +20,13 @@ socket.on('connect', function() {
 
 	socket.emit('join', params, function(err) {
 		if (err) {
-			alert(err);
-			window.location.href = '/';
+			swal({
+			    type: 'error',
+			    title: err.title,
+			    text: err.body,
+			}, function() {
+				window.location.href = "/";
+			});
 		} else {
 			console.log('No error');
 		}

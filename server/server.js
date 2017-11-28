@@ -26,11 +26,11 @@ io.on('connection', (socket) => {
 		params.room = params.room.toLowerCase();
 		
 		if (!isRealString(params.name) || !isRealString(params.room)) {
-			return callback('Name and room name are required!');
+			return callback({title: 'Oops.. please user a valid name and room!', body: 'Make sure to use at least one alphanumeric character.'});
 		} 
 
-		if (!users.isUserUnique(params) ) {
-			return callback('Name already taken');
+		if (!users.isUserUnique(params)) {
+			return callback({title: 'Oops.. that name is already taken!', body: 'Please pick a different name.'});
 		}
 
 		socket.join(params.room);
