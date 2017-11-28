@@ -27,6 +27,16 @@ class Users {
 	getUserList (room) {
 		return this.users.filter((user) => user.room === room).map((user) => user.name);
 	}
+	// checks that no other user in the chat room has the same name
+	isUserUnique (params) {
+		console.log(params);
+		// var sameNameUsers = this.users.filter((user) => user.name.toLowerCase() === name.toLowerCase());
+		// if (sameNameUsers.length === 0) {
+		// 	return ;
+		// } else {
+		// 	return false;
+		// }
+	}
 }
 
 
