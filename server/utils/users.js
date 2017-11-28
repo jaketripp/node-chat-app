@@ -1,21 +1,20 @@
-// [{
-// 	id: '!@#412asdf',
-// 	name: 'Andrew',
-// 	room: 'The Office Fans'
-// }]
-
 class Users {
 	constructor () {
 		this.users = [];
+		// object containing k/v pairs
+		// room: number of people
+		this.rooms = {};
 	}
 	addUser (id, name, room) {
 		var user = {id, name, room};
 		this.users.push(user);
+
 		return user;
 	}
 	removeUser (id) {
 		var user = this.getUser(id);
-
+		console.log(this.rooms);
+		
 		if (user) {
 			this.users = this.users.filter((user) => user.id !== id);			
 		}
@@ -27,11 +26,12 @@ class Users {
 	getUserList (room) {
 		return this.users.filter((user) => user.room === room).map((user) => user.name);
 	}
+	getRoomList () {
+		return this.users.map((user) => user.room);
+	}
 	// checks that no other user in the chat room has the same name
 	isUserUnique (params) {
 		var roomUsers = this.getUserList(params.room) || [];
-		console.log(roomUsers);
-		console.log(params.name);
 		if (roomUsers.length > 0) {
 			return roomUsers.filter((username) => username.toLowerCase() === params.name.toLowerCase()).length === 0;
 		} else {
@@ -39,7 +39,6 @@ class Users {
 		}
 	}
 }
-
 
 module.exports = {Users};
 

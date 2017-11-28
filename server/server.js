@@ -17,12 +17,13 @@ var io = socketIO(server);
 var users = new Users();
 app.use(express.static(publicPath));
 
+console.log(users.rooms);
 io.on('connection', (socket) => {
-	console.log('New user connected');
-
 	socket.on('join', (params, callback) => {
 		// make room case insensitive
 		// custom feature #1
+		// console.log(Object.keys(io.sockets.adapter.rooms));
+		// console.log(users.rooms);
 		params.room = params.room.toLowerCase();
 		
 		if (!isRealString(params.name) || !isRealString(params.room)) {
@@ -37,6 +38,7 @@ io.on('connection', (socket) => {
 		users.removeUser(socket.id);
 		users.addUser(socket.id, params.name, params.room);
 		io.to(params.room).emit('updateUserList', users.getUserList(params.room));
+		io.emit('updateRoomList', users.getRoomList());
 		// socket.leave('The Office Fans');
 
 		// everyone in a room

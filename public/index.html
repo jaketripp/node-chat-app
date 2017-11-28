@@ -9,23 +9,34 @@
 <body class="centered-form">
 	
 	<div class="centered-form__form">
-		<form action="/chat.html">
+		<form action="/chat.html" id="chat">
 			<div class="form-field">
 				<h3>Join a Chat</h3>
 			</div>
 			<div class="form-field">
-				<label>Display name</label>
+				<label>Username</label>
 				<input type="text" name="name" autofocus/>
 			</div>
 			<div class="form-field">
-				<label>Room name</label>
-				<input type="text" name="room"/>
+				<label>Select a room</label>
+				<select name="room" form="chat" id="selectRoom">
+					<option value=""></option>
+				</select>
 			</div>
+			<div class="form-field">
+				<label>Start your own room</label>
+				<input type="text" name="room" id="customRoom"/>
+			</div>
+			
 			<div class="form-field">
 				<button>Join</button>
 			</div>
 		</form>
 	</div>
+
+	<script src="/js/lib/jquery-3.2.1.min.js"></script>
+	<script src="/js/index.js"></script>
+
 
 </body>
 </html>
