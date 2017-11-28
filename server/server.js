@@ -17,13 +17,10 @@ var io = socketIO(server);
 var users = new Users();
 app.use(express.static(publicPath));
 
-console.log(users.rooms);
 io.on('connection', (socket) => {
 	socket.on('join', (params, callback) => {
 		// make room case insensitive
 		// custom feature #1
-		// console.log(Object.keys(io.sockets.adapter.rooms));
-		// console.log(users.rooms);
 		params.room = params.room.toLowerCase();
 		
 		if (!isRealString(params.name) || !isRealString(params.room)) {
@@ -79,6 +76,7 @@ io.on('connection', (socket) => {
 		var user = users.removeUser(socket.id);
 
 		if (user) {
+			io.emit('updateRoomList', users.getRoomList());
 			io.to(user.room).emit('updateUserList', users.getUserList(user.room));
 			io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left.`));
 		}
@@ -88,7 +86,3 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
 	console.log(`Server running on port ${port}`);
 });
-
-// socket emits to single connection.
-// io emits to every connection
-// socket.broadcast emits to every connection besides socket giving the command

@@ -32,6 +32,13 @@ var roomsObj = rooms.reduce(function (allRooms, room) {
   return allRooms;
 }, {});
 
+function capitalize(str) {
+	var arr = str.split(' ');
+    return arr.map(function (word){
+    	return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+}
+
 for (var room in roomsObj) {
-	select.append('<option value="' + room + '">' + room + ' - ' + roomsObj[room] + ' user(s)</option>');
+	select.append('<option value="' + room + '">' + capitalize(room) + ' - ' + roomsObj[room] + ' user(s)</option>');
 }

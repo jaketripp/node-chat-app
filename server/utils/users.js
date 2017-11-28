@@ -1,9 +1,6 @@
 class Users {
 	constructor () {
 		this.users = [];
-		// object containing k/v pairs
-		// room: number of people
-		this.rooms = {};
 	}
 	addUser (id, name, room) {
 		var user = {id, name, room};
@@ -13,7 +10,6 @@ class Users {
 	}
 	removeUser (id) {
 		var user = this.getUser(id);
-		console.log(this.rooms);
 		
 		if (user) {
 			this.users = this.users.filter((user) => user.id !== id);			
