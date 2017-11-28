@@ -1,5 +1,30 @@
+var roomsString = localStorage.getItem('rooms');
+var rooms = roomsString.split(',');
+
+var roomsObj = rooms.reduce(function (allRooms, room) { 
+  if (room in allRooms) {
+    allRooms[room]++;
+  }
+  else {
+    allRooms[room] = 1;
+  }
+  return allRooms;
+}, {});
+
 var select = $('#selectRoom');
 var customRoom = $('#customRoom');
+
+function capitalize(str) {
+	var arr = str.split(' ');
+    return arr.map(function (word){
+    	return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+}
+
+for (var room in roomsObj) {
+	select.append('<option value="' + room + '">' + capitalize(room) + ' - ' + roomsObj[room] + ' user(s)</option>');
+}
+
 
 select.on('change', function(e){
 	if (select.val()) {
@@ -19,26 +44,6 @@ customRoom.on('change', function(e){
 	}
 });
 
-var roomsString = localStorage.getItem('rooms');
-var rooms = roomsString.split(',');
-
-var roomsObj = rooms.reduce(function (allRooms, room) { 
-  if (room in allRooms) {
-    allRooms[room]++;
-  }
-  else {
-    allRooms[room] = 1;
-  }
-  return allRooms;
-}, {});
-
-function capitalize(str) {
-	var arr = str.split(' ');
-    return arr.map(function (word){
-    	return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join(' ');
-}
-
-for (var room in roomsObj) {
-	select.append('<option value="' + room + '">' + capitalize(room) + ' - ' + roomsObj[room] + ' user(s)</option>');
-}
+// reset back to white and enabled
+select.prop('disabled', false);
+select.css('background', 'white');
