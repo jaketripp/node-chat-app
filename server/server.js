@@ -55,6 +55,12 @@ io.on('connection', (socket) => {
 
 	});
 
+	// list active chat rooms on index page
+	socket.on('arrive', () => {
+		io.emit('updateRoomList', users.getRoomList());
+	});
+
+
 	socket.on('createMessage', (message, callback) => {
 		var user = users.getUser(socket.id);
 

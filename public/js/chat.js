@@ -45,10 +45,6 @@ socket.on('updateUserList', function(users) {
 	$('#users').html(ol);
 });
 
-socket.on('updateRoomList', function(rooms) {
-	localStorage.setItem('rooms', rooms);
-});
-
 socket.on('newMessage', function(message) {
 	var formattedTime = moment(message.createdAt).format('h:mm a');
 	var template = $('#message-template').html();
