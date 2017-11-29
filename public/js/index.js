@@ -6,12 +6,18 @@ socket.emit('arrive');
 var select = $('#selectRoom');
 var customRoom = $('#customRoom');
 
+// capitalize first letter in every word (can be multiple words)
 function capitalize(str) {
 	var arr = str.split(' ');
     return arr.map(function (word){
     	return word.charAt(0).toUpperCase() + word.slice(1);
     }).join(' ');
 }
+
+function pluralize(count, word) {
+    return count === 1 ? count + ' ' + word : count + ' ' + word + 's';
+}
+
 
 // UX (disable one )
 select.on('change', function(e){
@@ -54,7 +60,10 @@ socket.on('updateRoomList', function(rooms) {
 	
 	// append rooms with # of users
 	for (var room in roomsObj) {
-		select.append('<option value="' + room + '">' + capitalize(room) + ' - ' + roomsObj[room] + ' user(s)</option>');
+		// The Office Fans - 1 user vs The Office Fans - 2 users
+		var selectDisplay = capitalize(room) + ' - ' + pluralize(roomsObj[room], 'user');
+
+		select.append('<option value="' + room + '">' + selectDisplay + '</option>');
 	}
 
 });
